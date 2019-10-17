@@ -1,0 +1,82 @@
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const WebpackPwaManifest = require('webpack-pwa-manifest');
+const WorkboxPlugin = require('workbox-webpack-plugin');
+const GoogleAnalyticsPlugin = require('google-analytics-webpack-plugin')
+const path = require('path');
+
+module.exports = {
+    entry: ['./src/app.js', './src/style.scss'],
+    output: {
+        path: path.resolve(__dirname, 'dist'),
+        filename: 'bundle.js'
+    },
+    devServer: {
+        contentBase: path.join(__dirname, 'dist'),
+        compress: true,
+        port: 9000
+    },
+    plugins: [
+        new MiniCssExtractPlugin({
+            filename: 'style.css'
+        }),
+        new HtmlWebpackPlugin({
+            hash: true,
+            title: 'Mapa Przystanków w Trójmieście',
+            template: './src/index.html',
+            filename: './index.html',
+            favicon: './src/assets/favicon.ico'
+        }),
+        new WebpackPwaManifest({
+            fingerprints: false,
+            name: '3city bus map',
+            short_name: '3city buses',
+            description: 'Mapa Przystanków w Trójmieście.',
+            background_color: '#ffffff',
+            theme_color: '#2196F3',
+            start_url: '/?utm_source=a2hs',
+            display: 'standalone',
+            ios: {
+                'apple-mobile-web-app-status-bar-style': 'white'
+            },
+            icons: [
+              {
+                src: path.resolve('src/assets/icon.png'),
+                destination: './icons/',
+                sizes: [96, 128, 192, 256, 384, 512],
+                ios: true
+              },
+              {
+                src: path.resolve('src/assets/icon.png'),
+                destination: './icons/',
+                size: 512,
+                ios: 'startup'
+              }
+            ]
+          }),
+          new WorkboxPlugin.GenerateSW({
+            runtimeCaching: [{
+                urlPattern: /.*/,
+                handler: 'StaleWhileRevalidate',}]
+          }),
+          new GoogleAnalyticsPlugin({
+              id: 'UA-71778687-18'
+          })
+    ],
+    module: {
+        rules: [
+            {
+                test: /\.s[ac]ss$/i,
+                use: [
+                    MiniCssExtractPlugin.loader,
+                    'css-loader',
+                    'sass-loader',
+                ],
+            },
+            {
+                test: /\.(jpe?g|gif|png|svg|woff|ttf|wav|mp3)$/,
+                loader: "file-loader"
+            }
+        ]
+    }
+}

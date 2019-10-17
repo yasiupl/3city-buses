@@ -1,0 +1,49 @@
+@import "~mapbox-gl/dist/mapbox-gl.css";
+@import "~materialize-css/sass/materialize.scss";
+
+html,
+body {
+  display: flex;
+  flex-flow: column;
+  height: 100%;
+}
+
+nav {
+  z-index: 100;
+  overflow: hidden;
+  @extend .blue;
+}
+
+main {
+  height: 100%;
+}
+
+#map {
+  flex: 0 1 auto;
+  //position: absolute;
+  height: 100%;
+  width: 100%;
+}
+
+#details {
+  position: absolute;
+  top: 72px;
+  left: 1vw;
+  width: 420px;
+  max-height: 90vh;
+  overflow-y: auto;
+  //@extend .hide-on-med-and-down;
+  @extend .card-panel;
+
+  @media #{$medium-and-down} {
+    top: unset;
+    bottom: 0px;
+    width: 98%;
+    left: 1%;
+    max-height: 30vh;
+  }
+
+  .collection-item {
+    min-height: unset;
+  }
+}

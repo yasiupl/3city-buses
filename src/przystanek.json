@@ -1,0 +1,10 @@
+{
+    "stopCode":	"Numer przystanku",
+    "stopName":	"Nazwa przystanku",
+    "stopDesc": "Opis",
+    "date": "Data aktualizacji",
+    "zoneName": "Strefa",
+    "ticketZoneBorder": "Granica strefy",
+    "onDemand": "Na rządanie",
+    "wheelchairBoarding": "Dostęp dla wózków inwalidzkich"
+}
