@@ -25,7 +25,7 @@ const map = new mapboxgl.Map({
     style: 'mapbox://styles/mapbox/light-v10',
     hash: true,
     center: [18.5209, 54.4394],
-    zoom: 6
+    zoom: 10
 });
 
 // Add geolocate control to the map.
